@@ -13,4 +13,3 @@ else
   autorandr -l default
 fi
 xrdb -merge ~/.Xresources
-nitrogen --restore
