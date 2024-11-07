@@ -9,6 +9,13 @@
 # Usage: bandit.sh N, where N is the level you want to access.
 # Ex: bandit.sh 0
 # Will connect to bandit0 user, passing the first line of pass_bandit.txt as the password.
+#
+# IMPORTANT SECURITY POINT:
+# DO NOT USE THIS METHOD TO LOG INTO
+# ANYTHING THAT ISN'T A CTF!
+# STORING PASSWORDS IN PLAINTEXT AND
+# PASSING THEM AS ARGS TO sshpass IS
+# A HORRIBLE IDEA!!!!
 
 N="$1"
 counter=0
