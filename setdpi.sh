@@ -1,8 +1,9 @@
 #!/bin/bash
 
 EXTERNAL_MONITOR="3840x2160"
-DPI_WITH_EXTERNAL=140   # DPI when the external monitor is connected
-DPI_WITHOUT_EXTERNAL=96 # DPI when the external monitor is not connected
+DPI_WITH_EXTERNAL=140 # DPI when the external monitor is connected
+# DPI_WITHOUT_EXTERNAL=96 # DPI when the external monitor is not connected
+DPI_WITHOUT_EXTERNAL=114 # DPI when the external monitor is not connected
 
 # Check if the external monitor is connected
 if xrandr | grep -q $EXTERNAL_MONITOR; then
