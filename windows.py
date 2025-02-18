@@ -3,6 +3,8 @@ from argparse import ArgumentParser
 import subprocess
 import json 
 
+PICKER = "tofi"
+
 # Returns a list of all json window objects per workspace
 def get_workspace_windows():
     command = "swaymsg -t get_tree"
@@ -45,13 +47,13 @@ def parse_windows(ws_windows):
     for i_ws, ws in enumerate(ws_windows):
         for i_w, w in enumerate(ws[1]):
             indices.append((i_ws, i_w))
-            strings.append("<b>{:d}:</b> {:s}".format(ws[0], w.get('name')))
+            strings.append("{:d}: {:s}".format(ws[0], w.get('name')))
 
     return indices, strings
 
 # Executes wofi with the given input string
-def show_wofi(windows):
-    command = "wofi -p \"Windows: \" -d -i -m -k /dev/null --hide-scroll"
+def show_picker(windows):
+    command = "tofi --prompt-text 'Windows:'"
     process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     return process.communicate(input=windows)[0]
@@ -76,6 +78,6 @@ if __name__ == "__main__":
     ws_windows = get_workspace_windows()
     indices, strings = parse_windows(ws_windows)
     wofi_string = "\n".join(strings).encode("UTF-8")
-    selected = show_wofi(wofi_string)
+    selected = show_picker(wofi_string)
     selected_id = parse_id(indices, strings, ws_windows, selected)
     switch_window(selected_id)
