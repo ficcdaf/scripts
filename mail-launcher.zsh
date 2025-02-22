@@ -1,4 +1,4 @@
 #!/bin/zsh
-protonmail-bridge --noninteractive &
+protonmail-bridge & 
 sleep 2
 birdtray &

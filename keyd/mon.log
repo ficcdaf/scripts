@@ -1,0 +1,12 @@
+device added: 0002:000a:83b21bac TPPS/2 Elan TrackPoint (/dev/input/event16)
+device added: 0002:0007:b86ee257 SynPS/2 Synaptics TouchPad (/dev/input/event15)
+device added: 0fac:1ade:d2b36ae6 keyd virtual pointer (/dev/input/event14)
+device added: 0fac:0ade:efba1ddf keyd virtual keyboard (/dev/input/event13)
+device added: 0001:0001:70533846 AT Translated Set 2 keyboard (/dev/input/event6)
+device added: 17aa:5054:b7eca923 ThinkPad Extra Buttons (/dev/input/event5)
+device added: 0000:0006:bdb72f48 Video Bus (/dev/input/event4)
+AT Translated Set 2 keyboard	0001:0001:70533846	leftcontrol down
+AT Translated Set 2 keyboard	0001:0001:70533846	x down
+AT Translated Set 2 keyboard	0001:0001:70533846	x up
+AT Translated Set 2 keyboard	0001:0001:70533846	c down
+AT Translated Set 2 keyboard	0001:0001:70533846	c down
