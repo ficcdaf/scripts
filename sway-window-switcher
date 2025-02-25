@@ -1,0 +1,67 @@
+#!/bin/env sh
+
+Help() {
+    # Display Help
+    echo "This script lists all opened windows using swaymsg in a fuzzel menu"
+    echo "On selection, the focus will switch to the selected window and switch to its workspace if needed"
+    echo
+    echo "Syntax: $(basename "$0") [-h] [-t type ]"
+    echo
+    echo "options:"
+    printf "%s\t\t%s\n" "-h" "Print this Help."
+    printf "%s\t%s\n" "-t <type>" 'type of window to list, should be one of "all", "floating" ,"scratch", or "regular". Defaults to "all"'
+    echo
+}
+
+while getopts 'ht:' option; do
+    case "$option" in
+        h) # display Help
+            Help
+            exit
+            ;;
+        t) # set type
+            type="$OPTARG"
+            ;;
+        *)
+            echo 'Error in command line parsing' >&2
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+type=${type:='all'}
+
+all_windows=''
+
+case "$type" in
+    all)
+        all_windows=$(swaymsg -t get_tree |
+            jq -r 'recurse(.nodes[]?)|recurse(.floating_nodes[]?)|select(.type=="con"),select(.type=="floating_con")|(.id|tostring)+" "+ "               \(.app_id)"[-15:] + (if.focused then " *" else "  " end) +": " +.name' |
+            grep -vE '^[0-9]*[[:space:]]+null  : $')
+
+        ;;
+    regular)
+        all_windows=$(swaymsg -t get_tree | jq -r 'recurse(.nodes[]?)|select(.type=="con")|(.id|tostring)+" " + "               \(.app_id)"[-15:] + (if.focused then " *" else "  " end) + ": " +.name' |
+            grep -vE '^[0-9]*[[:space:]]+null  : $')
+        ;;
+    floating)
+        all_windows=$(swaymsg -t get_tree | jq '.nodes[1].nodes[].floating_nodes[] | (.id|tostring) + " " + .name?' | grep -e "[0-9]* ." | tr -d '"')
+        ;;
+    scratch)
+        all_windows=$(swaymsg -t get_tree |
+            jq -r 'recurse(.nodes[]?)|select(.name=="__i3_scratch")|recurse(.floating_nodes[]?)|select(.type=="floating_con")|(.id|tostring)+"               \(.app_id)"[-15:] + (if.focused then " *" else "  " end) + ": " +.name' |
+            grep -vE '^[0-9]*[[:space:]]+null  : $')
+        ;;
+    *)
+        echo -e "Invalid type \"$type\"\n"
+        Help
+        exit 1
+        ;;
+esac
+
+# Select window with fuzzel
+selected=$(printf "%s" "$all_windows" | fuzzel --dmenu --log-level=none --width=80 | awk '{print $1}')
+
+# Tell sway to focus said window
+[[ $selected ]] && swaymsg [con_id="$selected"] focus

@@ -1,0 +1,61 @@
+.TH "sway-window-switcher" "1" "April 2024" "sway-window-switcher" "User Commands"
+.SH NAME
+sway-window-switcher \- show fuzzel menu with file context actions.
+.SH SYNOPSIS
+.B sway-window-switcher
+.RB [ \-t\ <type> ]
+.SH DESCRIPTION
+A shell script to list and switch to opened windows in sway using swaymsg in a fuzzel menu
+.PD 0
+.P
+The Type can be one of "all", "regular", "scratch", or "floating"
+.PD
+.PD 0
+.P
+.PD
+If no type is provided, the script will show all opened windows.
+.SH EXAMPLES
+.TP
+\fBsway-window-switcher\fR
+List all opened windows
+.TP
+\fBsway-window-switcher -t regular\fR
+List all non-floating windows
+.TP
+\fBsway-window-switcher -t floating\fR
+List all floating windows
+.TP
+\fBsway-window-switcher -t scratch\fR
+List all windows in the scratchpad
+
+.SH AUTHOR
+.PP
+Written by Coding Otaku <contact@codingotaku.com>
+
+.SH REPORTING BUGS
+.PP
+Report bugs via email: <bugs@codingotaku.com>
+.PP
+Use the Codeberg issue tracker:
+.UR https://codeberg.org/codingotaku/fuzzel-scripts
+.UE
+.SH SEE ALSO
+.BR fuzzel (1),
+.SH COPYRIGHT
+.PP
+\f[B]sway-window-switcher\f[R] is licensed under the GNU General Public License v3.0
+.PP
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
