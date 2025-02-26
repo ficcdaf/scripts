@@ -9,6 +9,7 @@ RFMT=".mkv"
 OFMT=".mp4"
 RAW="$TEMPDIR/raw$RFMT"
 OUTDIR="$HOME/Videos/wf"
+mkdir -p "$OUTDIR"
 
 function compname {
   now=$(date +"%y-%m-%d-%H:%M:%S")
