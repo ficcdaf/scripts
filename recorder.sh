@@ -27,6 +27,7 @@ if [[ -f "$LOCK" ]]; then
   ffmpeg -y -i "$RAW" -c:v libx264 -preset slow -crf 21 -b:v 2M -maxrate 3M -bufsize 4M -c:a aac -b:a 96k -movflags +faststart "$outpath" || notify-send "Error during compression!"
   wl-copy -t 'text/uri-list' <<<"file://$outpath" || notify-send "Error during copy!"
   notify-send "Compressed recording copied to clipboard."
+  rm "$RAW"
 
 else
   # TODO: add recording status to waybar
