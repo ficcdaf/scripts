@@ -27,10 +27,12 @@ def get_string_id_mapping(window_list: list[WindowJson]):
 
 # Generate the string to be sent to fuzzel
 def get_input_string(mapping: dict[str, int]):
-    return "\n".join(mapping.keys())
+    m = max([len(s) for s in mapping.keys()])
+    return "\n".join(mapping.keys()), m
 
-def spawn_picker(cmd, input_string):
+def spawn_picker(cmd, input_string, m):
     # cmd = "fuzzel --dmenu -I --placeholder=Select a window:"
+    cmd = f"{cmd} --width {min(m, 120) + 1}"
     process = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     selection = process.communicate(input=input_string.encode("UTF-8"))
     if process.returncode != 2:
@@ -51,8 +53,8 @@ if __name__ == "__main__":
     # print("picker:", picker_cmd)
     wl = get_windows()
     mapping = get_string_id_mapping(wl)
-    input_string = get_input_string(mapping)
-    selection = spawn_picker(picker_cmd, input_string)
+    input_string, m= get_input_string(mapping)
+    selection = spawn_picker(picker_cmd, input_string, m)
     if selection is None:
         exit(1)
     try:
