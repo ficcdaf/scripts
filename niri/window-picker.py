@@ -19,7 +19,7 @@ def get_windows():
 def get_string_id_mapping(window_list: list[WindowJson]):
     mapping: dict[str, int] = {}
     for idx, window in enumerate(window_list):
-        s = f"{idx}: {window.get("title")}"
+        s = f"{idx}: {window.get("app_id")}: {window.get("title")}"
         id = window.get("id")
         assert type(id) == int
         mapping[s] = id
