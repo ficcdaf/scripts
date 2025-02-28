@@ -4,3 +4,4 @@ dracula.json
 # */default.conf
 */default.conf.bak
 *.crt
+niri/output.json
