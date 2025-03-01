@@ -32,7 +32,7 @@ if [[ -f "$LOCK" ]]; then
 
 else
   # TODO: add recording status to waybar
-  notify-send "Recording In Progress..."
+  notify-send "Recording..."
   touch "$LOCK"
   wf-recorder -Dyf "$RAW" &
   echo "$!" > "$LOCK"
